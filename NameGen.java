@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -23,10 +22,10 @@ public class NameGen {
 	public static void parseFile(String file, boolean once) {
 		nameStart.clear();
 		nameBase.clear();
-		//FileInputStream fstream = null;
+		// FileInputStream fstream = null;
 		try {
-			  InputStream inputStream = 
-					    NameGen.class.getClassLoader().getResourceAsStream("names.txt");
+			InputStream inputStream = NameGen.class.getClassLoader()
+					.getResourceAsStream("names.txt");
 			DataInputStream in = new DataInputStream(inputStream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			String strLine;
