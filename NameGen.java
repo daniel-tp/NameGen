@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,10 +23,11 @@ public class NameGen {
 	public static void parseFile(String file, boolean once) {
 		nameStart.clear();
 		nameBase.clear();
-		FileInputStream fstream = null;
+		//FileInputStream fstream = null;
 		try {
-			fstream = new FileInputStream(file);
-			DataInputStream in = new DataInputStream(fstream);
+			  InputStream inputStream = 
+					    NameGen.class.getClassLoader().getResourceAsStream("names.txt");
+			DataInputStream in = new DataInputStream(inputStream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			String strLine;
 
