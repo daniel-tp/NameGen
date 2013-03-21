@@ -15,14 +15,19 @@ public class NameGen {
 	static Random random = new Random();
 	private static boolean debugEnabled = false;
 
+	// set debugEnabled bool to what boolean is given
 	public static void debugMode(boolean debug) {
 		debugEnabled = debug;
 	}
 
+	// Parse the given file into the hashmap nameBase, also putting the start of
+	// the names into nameStart.
+	// "once" is whether the letters will be put into the hashmap once or
+	// multiple, with multiple weighting the generated names towards the
+	// patternt aht comes up more in the given input
 	public static void parseFile(String file, boolean once) {
 		nameStart.clear();
 		nameBase.clear();
-		// FileInputStream fstream = null;
 		try {
 			InputStream inputStream = NameGen.class.getClassLoader()
 					.getResourceAsStream("names.txt");
@@ -36,7 +41,7 @@ public class NameGen {
 				char[] c = strLine.toCharArray();
 
 				nameStart.add(c[0] + "" + c[1]);
-
+				// Should move this to a seperate function sometime
 				if (strLine.length() > 2) {
 					for (int i = 0; i < strLine.length() - 2; i++) {
 						if (nameBase.get(c[i] + "" + c[i + 1]) == null) {
@@ -71,6 +76,8 @@ public class NameGen {
 
 	}
 
+	// Gets a letter from nameBase according to the given letters (of which
+	// there should be two)
 	private static String getletter(String letters) {
 		if (nameBase.get(letters) == null) {
 			return null;
@@ -80,13 +87,14 @@ public class NameGen {
 		if (debugEnabled) {
 			System.out.println("getting: " + letters + ", got: " + returned
 					+ ". (" + letters + returned + ") ");
-			for (String s : nameBase.get(letters)) {
-				System.out.print(s);
-			}
+
 		}
 		return returned;
 	}
 
+	// Generates the name, with minsize and maxsize of the name, with the name
+	// being random between them. It is not an even distribution of size and
+	// entirely depends on the input.
 	public static String generateName(int minsize, int maxsize) {
 		int length = random.nextInt(maxsize - minsize) + minsize;
 		String name = nameStart.get(random.nextInt(nameStart.size()));
@@ -107,9 +115,15 @@ public class NameGen {
 		return name;
 	}
 
+	// An example of it being run, with names.txt, only adding once and printing
+	// 100 names between size 2 and 10.
 	public static void main(String[] args) {
+		int count = 100;
+		if (args.length > 0) {
+			count = Integer.parseInt(args[0]);
+		}
 		NameGen.parseFile("names.txt", true);
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < count; i++) {
 			System.out.println(NameGen.generateName(2, 10));
 		}
 	}
