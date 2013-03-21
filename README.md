@@ -1,79 +1,39 @@
 NameGen
 =======
 
-A simple trigram random name generator. 
+A simple **trigram** random name generator. 
 
 The initial inspiration for making this is from http://forums.xkcd.com/viewtopic.php?f=11&t=31415#p1052201
 
-An example of output:
+**An example of output:**
 
-
-Magiasholu
-
-Kersiq
-
-Algo
-
-Seppy
-
-Werkenhatts
-
-Alud
-
-Riqalfo
-
-Mihaesu
-
-Dalwoopha
-
-Mujudago
-
-Lerarc
-
-Sasaac
-
-Ovel
-
-Dovescu
-
-Chaan
-
-Takys
-
-Deueytox
-
-Lenzadda
-
-Takiya
-
-Loct
-
-Halkoe
-
-Levynd
-
-Zodadr
-
-Sceco
-
-Wisasmeso
-
-Raetthugor
-
-Tercul
-
-Lampesu
-
-Daskumpto
-
-Paghdi
-
-Elgelai
-
-Kiagi
-
-Liple
-
+Magiasholu   
+Kersiq   
+Algo   
+Seppy   
+Werkenhatts   
+Alud   
+Riqalfo   
+Mihaesu   
+Dalwoopha   
+Mujudago   
+Lerarc   
+Dovescu   
+Chaan   
+Takys   
+Deueytox   
+Lenzadda   
+Takiya   
+Loct   
+Halkoe   
+Sceco   
+Tercul   
+Lampesu   
+Daskumpto   
+Paghdi   
+Elgelai   
+Kiagi   
+Liple   
 
 An example with debugging on:
 
