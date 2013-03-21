@@ -35,7 +35,7 @@ Elgelai
 Kiagi   
 Liple   
 
-An example with debugging on:
+**An example with debugging on:**
 
 getting: ka, got: t. (kat)  
 kat  
@@ -53,4 +53,4 @@ getting: ot, got: r. (otr)
 katoscotr  
 getting: tr, got: o. (tro)   
 katoscotro  
-NameGen: Katoscotro
+NameGen: **Katoscotro**

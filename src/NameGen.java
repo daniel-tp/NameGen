@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class NameGen {
-	static HashMap<String, ArrayList<String>> nameBase = new HashMap<String, ArrayList<String>>();
-	static ArrayList<String> nameStart = new ArrayList<String>();
-	static Random random = new Random();
+	private static HashMap<String, ArrayList<String>> nameBase = new HashMap<String, ArrayList<String>>();
+	private static ArrayList<String> nameStart = new ArrayList<String>();
+	private static Random random = new Random();
 	private static boolean debugEnabled = false;
 
 	// set debugEnabled bool to what boolean is given
@@ -24,7 +24,7 @@ public class NameGen {
 	// the names into nameStart.
 	// "once" is whether the letters will be put into the hashmap once or
 	// multiple, with multiple weighting the generated names towards the
-	// patternt aht comes up more in the given input
+	// pattern that comes up more in the given input
 	public static void parseFile(String file, boolean once) {
 		nameStart.clear();
 		nameBase.clear();
@@ -36,37 +36,8 @@ public class NameGen {
 			String strLine;
 
 			while ((strLine = br.readLine()) != null) {
-				// Print the content on the console
-				strLine = strLine.toLowerCase();
-				char[] c = strLine.toCharArray();
-
-				nameStart.add(c[0] + "" + c[1]);
-				// Should move this to a seperate function sometime
-				if (strLine.length() > 2) {
-					for (int i = 0; i < strLine.length() - 2; i++) {
-						if (nameBase.get(c[i] + "" + c[i + 1]) == null) {
-							ArrayList<String> list = new ArrayList<String>();
-							list.add("" + c[i + 2]);
-							nameBase.put(c[i] + "" + c[i + 1], list);
-						} else {
-							ArrayList<String> list = nameBase.get(c[i] + ""
-									+ c[i + 1]);
-
-							if (!once
-									|| (!list.contains("" + c[i + 2]) && once)) {
-
-								list.add("" + c[i + 2]);
-								nameBase.put(c[i] + "" + c[i + 1], list);
-							}
-						}
-
-					}
-				} else {
-					if (debugEnabled)
-						System.out.println("Input rejected, too short.");
-				}
-				if (debugEnabled)
-					System.out.println(strLine);
+				
+				forEachLine(strLine, once);
 
 			}
 			in.close();
@@ -74,6 +45,37 @@ public class NameGen {
 			e.printStackTrace();
 		}
 
+	}
+
+	private static void forEachLine(String line, boolean once) {
+		String strLine = line.toLowerCase();
+		char[] c = strLine.toCharArray();
+
+		nameStart.add(c[0] + "" + c[1]);
+		// Should move this to a separate function sometime
+		if (strLine.length() > 2) {
+			for (int i = 0; i < strLine.length() - 2; i++) {
+				if (nameBase.get(c[i] + "" + c[i + 1]) == null) {
+					ArrayList<String> list = new ArrayList<String>();
+					list.add("" + c[i + 2]);
+					nameBase.put(c[i] + "" + c[i + 1], list);
+				} else {
+					ArrayList<String> list = nameBase.get(c[i] + "" + c[i + 1]);
+
+					if (!once || (!list.contains("" + c[i + 2]) && once)) {
+
+						list.add("" + c[i + 2]);
+						nameBase.put(c[i] + "" + c[i + 1], list);
+					}
+				}
+
+			}
+		} else {
+			if (debugEnabled)
+				System.out.println("Input rejected, too short.");
+		}
+		if (debugEnabled)
+			System.out.println(strLine);
 	}
 
 	// Gets a letter from nameBase according to the given letters (of which
