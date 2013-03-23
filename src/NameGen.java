@@ -64,24 +64,30 @@ public class NameGen {
 	 *            just once, multiple times weights the random choice.
 	 */
 	private static void forEachLine(String line, boolean once) {
+		StringBuilder sb = new StringBuilder(2);
 		String strLine = line.toLowerCase();
 		char[] c = strLine.toCharArray();
 
-		nameStart.add(c[0] + "" + c[1]);
+		sb.append(c[0]);
+		sb.append(c[1]);
+		nameStart.add(sb.toString());
 		// Should move this to a separate function sometime
 		if (strLine.length() > 2) {
 			for (int i = 0; i < strLine.length() - 2; i++) {
-				if (nameBase.get(c[i] + "" + c[i + 1]) == null) {
+				sb = new StringBuilder(2);
+				sb.append(c[i]);
+				sb.append(c[1 + 1]);
+				if (nameBase.get(sb.toString()) == null) {
 					ArrayList<Character> list = new ArrayList<Character>();
 					list.add(c[i + 2]);
-					nameBase.put(c[i] + "" + c[i + 1], list);
+					nameBase.put(sb.toString(), list);
 				} else {
-					ArrayList<Character> list = nameBase.get(c[i] + "" + c[i + 1]);
+					ArrayList<Character> list = nameBase.get(sb.toString());
 
 					if (!once || (!list.contains(c[i + 2]))) {
 
 						list.add(c[i + 2]);
-						nameBase.put(c[i] + "" + c[i + 1], list);
+						nameBase.put(sb.toString(), list);
 					}
 				}
 
@@ -133,22 +139,25 @@ public class NameGen {
 	 */
 	public static String generateName(int minsize, int maxsize) {
 		int length = random.nextInt(maxsize - minsize) + minsize;
-		String name = nameStart.get(random.nextInt(nameStart.size()));
-
+		
+		StringBuilder sb = new StringBuilder(maxsize + 3);
+		sb.append(nameStart.get(random.nextInt(nameStart.size())));
 		for (int i = 0; i < length; i++) {
-			Character nextLetter = getletter(name.substring(name.length() - 2));
+			Character nextLetter = getletter(sb.substring(sb.length() - 2));
 			if (nextLetter == null) {
-				return name;
+				return sb.toString();
 			} else {
-				name = name + nextLetter;
+				sb.append(nextLetter);
 				if (debugEnabled)
-					System.out.println(name);
+					System.out.println(sb.toString());
 			}
 		}
-		name = name.substring(0, 1).toUpperCase() + name.substring(1);
+		StringBuilder sb2 = new StringBuilder(maxsize+3);
+		sb2.append(sb.substring(0, 1).toUpperCase());
+		sb2.append(sb.substring(1));
 		if (debugEnabled)
-			System.out.println("NameGen: " + name);
-		return name;
+			System.out.println("NameGen: " + sb2.toString());
+		return sb2.toString();
 	}
 
 	/**
