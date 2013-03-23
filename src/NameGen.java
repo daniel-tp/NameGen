@@ -76,7 +76,7 @@ public class NameGen {
 			for (int i = 0; i < strLine.length() - 2; i++) {
 				sb = new StringBuilder(2);
 				sb.append(c[i]);
-				sb.append(c[1 + 1]);
+				sb.append(c[i + 1]);
 				if (nameBase.get(sb.toString()) == null) {
 					ArrayList<Character> list = new ArrayList<Character>();
 					list.add(c[i + 2]);
@@ -139,7 +139,7 @@ public class NameGen {
 	 */
 	public static String generateName(int minsize, int maxsize) {
 		int length = random.nextInt(maxsize - minsize) + minsize;
-		
+
 		StringBuilder sb = new StringBuilder(maxsize + 3);
 		sb.append(nameStart.get(random.nextInt(nameStart.size())));
 		for (int i = 0; i < length; i++) {
@@ -152,7 +152,7 @@ public class NameGen {
 					System.out.println(sb.toString());
 			}
 		}
-		StringBuilder sb2 = new StringBuilder(maxsize+3);
+		StringBuilder sb2 = new StringBuilder(maxsize + 3);
 		sb2.append(sb.substring(0, 1).toUpperCase());
 		sb2.append(sb.substring(1));
 		if (debugEnabled)
