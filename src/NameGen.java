@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class NameGen {
-	private static HashMap<String, ArrayList<String>> nameBase = new HashMap<String, ArrayList<String>>();
+	private static HashMap<String, ArrayList<Character>> nameBase = new HashMap<String, ArrayList<Character>>();
 	private static ArrayList<String> nameStart = new ArrayList<String>();
 	private static Random random = new Random();
 	private static boolean debugEnabled = false;
@@ -72,15 +72,15 @@ public class NameGen {
 		if (strLine.length() > 2) {
 			for (int i = 0; i < strLine.length() - 2; i++) {
 				if (nameBase.get(c[i] + "" + c[i + 1]) == null) {
-					ArrayList<String> list = new ArrayList<String>();
-					list.add("" + c[i + 2]);
+					ArrayList<Character> list = new ArrayList<Character>();
+					list.add(c[i + 2]);
 					nameBase.put(c[i] + "" + c[i + 1], list);
 				} else {
-					ArrayList<String> list = nameBase.get(c[i] + "" + c[i + 1]);
+					ArrayList<Character> list = nameBase.get(c[i] + "" + c[i + 1]);
 
-					if (!once || (!list.contains("" + c[i + 2]) && once)) {
+					if (!once || (!list.contains(c[i + 2]))) {
 
-						list.add("" + c[i + 2]);
+						list.add(c[i + 2]);
 						nameBase.put(c[i] + "" + c[i + 1], list);
 					}
 				}
@@ -104,11 +104,11 @@ public class NameGen {
 	 *            "FA" will get "D" to make "FAD"
 	 * @return Returns the 3rd letter, for example the "D" in "FAD"
 	 */
-	private static String getletter(String letters) {
+	private static Character getletter(String letters) {
 		if (nameBase.get(letters) == null) {
 			return null;
 		}
-		String returned = nameBase.get(letters).get(
+		Character returned = nameBase.get(letters).get(
 				random.nextInt(nameBase.get(letters).size()));
 		if (debugEnabled) {
 			System.out.println("getting: " + letters + ", got: " + returned
@@ -136,7 +136,7 @@ public class NameGen {
 		String name = nameStart.get(random.nextInt(nameStart.size()));
 
 		for (int i = 0; i < length; i++) {
-			String nextLetter = getletter(name.substring(name.length() - 2));
+			Character nextLetter = getletter(name.substring(name.length() - 2));
 			if (nextLetter == null) {
 				return name;
 			} else {
